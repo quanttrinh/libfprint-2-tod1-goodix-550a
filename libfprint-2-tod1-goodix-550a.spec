@@ -1,33 +1,39 @@
-%global debug_package       %{nil}
+%global debug_package %{nil}
 
 Name:           libfprint-2-tod1-goodix-550a
 
-Version:        0.0.9
+Version:        0.0.11
 Release:        %autorelease
-Summary:        Repackaged driver module binary from Lenovo for Goodix 27C6:550A fingerprint reader
+Summary:        Repackaged Goodix fingerprint reader driver module from Ubuntu for 27C6:550A
 
-License:        GPL-3.0
-URL:            https://support.lenovo.com/ca/en/downloads/ds560884-goodix-fingerprint-driver-for-linux-thinkpad-e14-gen-4-e15-gen-4
-Source0:        https://github.com/QuanTrinhCA/libfprint-2-tod1-goodix-550a/archive/refs/tags/%{version}.tar.gz
+Provides:       %{name} == %{version}
+Obsoletes:      %{name} < %{version}
 
-Requires:       libfprint-tod
-#For installing udev rules
+License:        GPL-3.0-or-later
+URL:            https://launchpad.net/~libfprint-tod1-group
+Source0:        https://launchpad.net/~libfprint-tod1-group/+archive/ubuntu/ppa/+sourcefiles/libfprint-2-tod1-goodix/%{version}+2404-0ubuntu1/libfprint-2-tod1-goodix_%{version}+2404.orig.tar.gz
+ExclusiveArch:  x86_64
+
 BuildRequires:  systemd
 
 %description
-Repackaged Goodix driver module from Lenovo for fingerprint reader to support 27C6:550A.
+Repackaged Goodix fingerprint reader driver module from Ubuntu for 27C6:550A
 
 %prep
-%setup -q -n libfprint-2-tod1-goodix-550a-%{version}
+%autosetup -C
+
+%build
 
 %install
-mv libfprint-2-tod1-goodix-550a-%{version}/* %{_builddir}/libfprint-2-tod1-goodix-550a-%{version}/
-install -p -d -m 0755 %{buildroot}%{_libdir}/libfprint-2/tod-1/
-install -m 0644 usr/lib/x86_64-linux-gnu/libfprint-2/tod-1/libfprint-tod-goodix-550a-%{version}.so %{buildroot}%{_libdir}/libfprint-2/tod-1/libfprint-tod-goodix-550a-%{version}.so
-install -p -d -m 0755 %{buildroot}%{_udevrulesdir}
-install -m 0644 lib/udev/rules.d/60-libfprint-2-tod1-goodix.rules %{buildroot}%{_udevrulesdir}/60-libfprint-2-tod1-goodix.rules
+install -p -m 0755 -D usr/lib/x86_64-linux-gnu/libfprint-2/tod-1/libfprint-tod-goodix-550a-%{version}.so %{buildroot}%{_libdir}/libfprint-2/tod-1/libfprint-2-tod1-goodix-550a.so
+install -p -m 0644 -D lib/udev/rules.d/60-libfprint-2-tod1-goodix.rules %{buildroot}%{_udevrulesdir}/60-libfprint-2-tod1-goodix-550a.rules
+
+%check
 
 %files
 %defattr(-,root,root,-)
-%{_libdir}/libfprint-2/tod-1/libfprint-tod-goodix-550a-%{version}.so
-%{_udevrulesdir}/60-libfprint-2-tod1-goodix.rules
+%{_libdir}/libfprint-2/tod-1/libfprint-2-tod1-goodix-550a.so
+%{_udevrulesdir}/60-libfprint-2-tod1-goodix-550a.rules
+
+%changelog
+%autochangelog

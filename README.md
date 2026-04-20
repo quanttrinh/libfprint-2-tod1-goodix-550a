@@ -1,2 +1,3 @@
-This is the repackaging of the Goodix 550a driver for Fedora 39 (Tested working).
-The binary is by Lenono for Ubuntu: https://support.lenovo.com/us/en/downloads/ds560884-goodix-fingerprint-driver-for-linux-thinkpad-e14-gen-4-e15-gen-4
+This is the repackaging of the Goodix 550a driver for Fedora.
+
+The binary is from Ubuntu: https://launchpad.net/~libfprint-tod1-group/+archive/ubuntu/ppa/+packages
